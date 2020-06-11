@@ -1,0 +1,101 @@
+action: GLOB, msg: packaging
+cwd: /search/odin/os-rq-plugin/os-scrapy-linkextractor
+cmd: /root/.pyenv/versions/3.6.1/envs/os-scrapy/bin/python3.6 setup.py sdist --formats=zip --dist-dir .tox/dist
+running sdist
+running egg_info
+writing os_scrapy_linkextractor.egg-info/PKG-INFO
+writing dependency_links to os_scrapy_linkextractor.egg-info/dependency_links.txt
+writing requirements to os_scrapy_linkextractor.egg-info/requires.txt
+writing top-level names to os_scrapy_linkextractor.egg-info/top_level.txt
+reading manifest file 'os_scrapy_linkextractor.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+/root/.pyenv/versions/3.6.1/lib/python3.6/distutils/dist.py:261: UserWarning: Unknown distribution option: 'long_description_content_type'
+  warnings.warn(msg)
+warning: no previously-included files matching '__pycache__' found anywhere in distribution
+writing manifest file 'os_scrapy_linkextractor.egg-info/SOURCES.txt'
+warning: sdist: standard file not found: should have one of README, README.rst, README.txt
+
+running check
+warning: check: missing required meta-data: url
+
+warning: check: missing meta-data: either (author and author_email) or (maintainer and maintainer_email) must be supplied
+
+creating os_scrapy_linkextractor-0.0.1
+creating os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor
+creating os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info
+creating os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/linkextractors
+creating os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/lx_extensions
+creating os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/spiders
+creating os_scrapy_linkextractor-0.0.1/requirements
+creating os_scrapy_linkextractor-0.0.1/tests
+copying files to os_scrapy_linkextractor-0.0.1...
+copying LICENSE -> os_scrapy_linkextractor-0.0.1
+copying MANIFEST.in -> os_scrapy_linkextractor-0.0.1
+copying README.md -> os_scrapy_linkextractor-0.0.1
+copying scrapy.cfg -> os_scrapy_linkextractor-0.0.1
+copying setup.cfg -> os_scrapy_linkextractor-0.0.1
+copying setup.py -> os_scrapy_linkextractor-0.0.1
+copying os_scrapy_linkextractor/__init__.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor
+copying os_scrapy_linkextractor/items.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor
+copying os_scrapy_linkextractor/middlewares.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor
+copying os_scrapy_linkextractor/pipelines.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor
+copying os_scrapy_linkextractor/settings.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor
+copying os_scrapy_linkextractor/utils.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor
+copying os_scrapy_linkextractor.egg-info/PKG-INFO -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info
+copying os_scrapy_linkextractor.egg-info/SOURCES.txt -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info
+copying os_scrapy_linkextractor.egg-info/dependency_links.txt -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info
+copying os_scrapy_linkextractor.egg-info/not-zip-safe -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info
+copying os_scrapy_linkextractor.egg-info/requires.txt -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info
+copying os_scrapy_linkextractor.egg-info/top_level.txt -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info
+copying os_scrapy_linkextractor/linkextractors/__init__.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/linkextractors
+copying os_scrapy_linkextractor/linkextractors/external.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/linkextractors
+copying os_scrapy_linkextractor/linkextractors/lxmlhtml.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/linkextractors
+copying os_scrapy_linkextractor/linkextractors/regex.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/linkextractors
+copying os_scrapy_linkextractor/lx_extensions/__init__.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/lx_extensions
+copying os_scrapy_linkextractor/lx_extensions/external.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/lx_extensions
+copying os_scrapy_linkextractor/lx_extensions/lxml.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/lx_extensions
+copying os_scrapy_linkextractor/lx_extensions/regex.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/lx_extensions
+copying os_scrapy_linkextractor/spiders/__init__.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/spiders
+copying os_scrapy_linkextractor/spiders/extract_in_middleware.py -> os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/spiders
+copying requirements/requirements-lint.txt -> os_scrapy_linkextractor-0.0.1/requirements
+copying requirements/requirements-test.txt -> os_scrapy_linkextractor-0.0.1/requirements
+copying requirements/requirements.txt -> os_scrapy_linkextractor-0.0.1/requirements
+copying tests/__init__.py -> os_scrapy_linkextractor-0.0.1/tests
+copying tests/test_scrapy_check.py -> os_scrapy_linkextractor-0.0.1/tests
+Writing os_scrapy_linkextractor-0.0.1/setup.cfg
+creating '.tox/dist/os_scrapy_linkextractor-0.0.1.zip' and adding 'os_scrapy_linkextractor-0.0.1' to it
+adding 'os_scrapy_linkextractor-0.0.1/LICENSE'
+adding 'os_scrapy_linkextractor-0.0.1/MANIFEST.in'
+adding 'os_scrapy_linkextractor-0.0.1/README.md'
+adding 'os_scrapy_linkextractor-0.0.1/scrapy.cfg'
+adding 'os_scrapy_linkextractor-0.0.1/setup.cfg'
+adding 'os_scrapy_linkextractor-0.0.1/setup.py'
+adding 'os_scrapy_linkextractor-0.0.1/PKG-INFO'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/__init__.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/items.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/middlewares.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/pipelines.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/settings.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/utils.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/linkextractors/__init__.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/linkextractors/external.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/linkextractors/lxmlhtml.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/linkextractors/regex.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/lx_extensions/__init__.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/lx_extensions/external.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/lx_extensions/lxml.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/lx_extensions/regex.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/spiders/__init__.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor/spiders/extract_in_middleware.py'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info/PKG-INFO'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info/SOURCES.txt'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info/dependency_links.txt'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info/not-zip-safe'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info/requires.txt'
+adding 'os_scrapy_linkextractor-0.0.1/os_scrapy_linkextractor.egg-info/top_level.txt'
+adding 'os_scrapy_linkextractor-0.0.1/requirements/requirements-lint.txt'
+adding 'os_scrapy_linkextractor-0.0.1/requirements/requirements-test.txt'
+adding 'os_scrapy_linkextractor-0.0.1/requirements/requirements.txt'
+adding 'os_scrapy_linkextractor-0.0.1/tests/__init__.py'
+adding 'os_scrapy_linkextractor-0.0.1/tests/test_scrapy_check.py'
+removing 'os_scrapy_linkextractor-0.0.1' (and everything under it)
