@@ -50,7 +50,7 @@ class LxExtensionManager:
                 link_dict[name].extend(links)
         return link_dict
 
-    # Set extracted links into response.mete["extracted_links"]
+    # Set extracted links into response.meta["extracted_links"]
     # return Deferred of response
     def process_response(self, response):
         d = as_deferred(self.extract_links(response))
