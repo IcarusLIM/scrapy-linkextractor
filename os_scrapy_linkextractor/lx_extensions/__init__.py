@@ -33,13 +33,13 @@ class LxExtensionManager:
             return
         self.lx_extensions.append(lx_extension)
 
-    async def extract_links(self, response):
+    def extract_links(self, response):
         rules = response.request.meta.get("_link_rules_", None)
         if rules is None or not isinstance(rules, list):
             return []
         link_dict = {}
         for lx_extension in self.lx_extensions:
-            links = await lx_extension.extract_links(response, rules)
+            links = lx_extension.extract_links(response, rules)
             if len(links) == 0:
                 continue
             links = [link_to_str(l) for l in links]
@@ -50,21 +50,13 @@ class LxExtensionManager:
                 link_dict[name].extend(links)
         return link_dict
 
-    # Set extracted links into response.mete["extracted_links"]
-    # return Deferred of response
+    # Set extracted links into response.meta["extracted_links"]
     def process_response(self, response):
-        d = as_deferred(self.extract_links(response))
-
-        def _on_success(link_dict):
-            if len(link_dict) > 0:
+        link_dict = self.extract_links(response)
+        if len(link_dict) > 0:
                 assert "extracted_links" not in response.meta
                 response.meta["extracted_links"] = link_dict
-
-        d.addCallback(_on_success)
-        d.addBoth(lambda _: response)
-
-        return d
-
+        return response
 
 class LinkExtractorExtension:
     def __init__(self, lx_cls):
@@ -79,7 +71,7 @@ class LinkExtractorExtension:
     def validate_rule(self, rule):
         return isinstance(rule, dict) and rule.get("type", None) is not None
 
-    async def extract_links(self, response, rules):
+    def extract_links(self, response, rules):
         link_extractors = [
             self._new_linkextractor(rule)
             for rule in rules
@@ -88,7 +80,5 @@ class LinkExtractorExtension:
         links = []
         for lx in link_extractors:
             _links = lx.extract_links(response)
-            if isawaitable(_links):
-                _links = await _links
             links.extend(_links)
         return links
