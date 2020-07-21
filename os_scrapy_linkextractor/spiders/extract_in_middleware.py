@@ -23,18 +23,13 @@ class ExtractInMiddlewareSpider(scrapy.Spider):
                         "tags": ["a", "area"],
                         "attrs": ["href"],
                         "restrict_css": [],
-                    },
-                    {
-                        "type": "external",
-                        "api": "http://localhost:8000/api/links",
-                        "method": "POST",
-                    },
+                    }
                 ]
             },
         )
 
     def parse(self, response):
-        yield ExampleItem(
+        return ExampleItem(
             url=response.url,
             request_headers=response.request.headers,
             response_headers=response.headers,

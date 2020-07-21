@@ -35,21 +35,15 @@ class ExampleSpider(scrapy.Spider):
                         "tags": ["a", "area"],
                         "attrs": ["href"],
                         "restrict_css": [],
-                    },
-                    {
-                        "type": "external",
-                        "api": "http://localhost:8000/api/links",
-                        "method": "POST",
-                    },
+                    }
                 ]
             },
         )
 
     def parse(self, response):
-        d = self.lx_manager.process_response(response)
+        response = self.lx_manager.process_response(response)
 
-        d.addCallback(
-            lambda response: ExampleItem(
+        return ExampleItem(
                 url=response.url,
                 request_headers=response.request.headers,
                 response_headers=response.headers,
@@ -57,8 +51,6 @@ class ExampleSpider(scrapy.Spider):
                 meta=response.meta,
                 body=response.body,
             )
-        )
-        return d
 
     def _set_lxmanager(self, crawler):
         self.lx_manager = LxExtensionManager.from_crawler(crawler)
