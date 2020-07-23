@@ -23,7 +23,7 @@ class ExampleSpider(scrapy.Spider):
         yield scrapy.Request(
             url="http://www.example.com",
             meta={
-                "_link_rules_": [
+                "extractor.rules": [
                     {"type": "re", "allow_domains": [], "deny_domains": []},
                     {
                         "type": "lxml",

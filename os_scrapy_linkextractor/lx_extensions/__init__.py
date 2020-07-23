@@ -4,7 +4,6 @@ from inspect import isawaitable
 from scrapy.utils.misc import load_object
 
 from os_scrapy_linkextractor.linkextractors import link_to_str
-from os_scrapy_linkextractor.utils import as_deferred
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +33,7 @@ class LxExtensionManager:
         self.lx_extensions.append(lx_extension)
 
     def extract_links(self, response):
-        rules = response.request.meta.get("_link_rules_", None)
+        rules = response.request.meta.get("extractor.rules", None)
         if rules is None or not isinstance(rules, list):
             return []
         link_dict = {}
@@ -54,8 +53,8 @@ class LxExtensionManager:
     def process_response(self, response):
         link_dict = self.extract_links(response)
         if len(link_dict) > 0:
-                assert "extracted_links" not in response.meta
-                response.meta["extracted_links"] = link_dict
+                assert "extractor.links" not in response.meta
+                response.meta["extractor.links"] = link_dict
         return response
 
 class LinkExtractorExtension:
