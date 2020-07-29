@@ -60,7 +60,9 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 EXTENSIONS = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
-    'os_scrapy_linkextractor.extensions.LinkExtractorExtension': 543
+    'os_scrapy_linkextractor.extensions.LinkExtractorExtension': 1,
+    "os_scrapy_record.ResponseCallback": 1,
+    "os_scrapy_record.ResponseErrback": 1,
 }
 
 # Configure item pipelines
