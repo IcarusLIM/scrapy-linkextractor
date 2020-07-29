@@ -47,7 +47,7 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    'os_scrapy_linkextractor.middlewares.OsScrapyLinkextractorSpiderMiddleware': 543,
+#    'os_scrapy_linkextractor.middlewares.LinkExtractorSpiderMiddleware': 543,
 # }
 
 # Enable or disable downloader middlewares
@@ -58,9 +58,12 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
-# EXTENSIONS = {
+EXTENSIONS = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
-# }
+    'os_scrapy_linkextractor.extensions.LinkExtractorExtension': 1,
+    "os_scrapy_record.ResponseCallback": 1,
+    "os_scrapy_record.ResponseErrback": 1,
+}
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html

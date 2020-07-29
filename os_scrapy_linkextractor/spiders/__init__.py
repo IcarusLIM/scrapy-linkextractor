@@ -42,7 +42,6 @@ class ExampleSpider(scrapy.Spider):
 
     def parse(self, response):
         response = self.lx_manager.process_response(response)
-
         return ExampleItem(
                 url=response.url,
                 request_headers=response.request.headers,
