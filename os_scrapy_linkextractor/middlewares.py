@@ -21,3 +21,17 @@ class LinkExtractorDownloaderMiddleware:
         middleware = cls()
         middleware._set_lxmanager(crawler)
         return middleware
+
+class LinkExtractorSpiderMiddleware:
+    def __init__(self, crawler):
+        self.crawler = crawler
+        self.lx_manager = LxExtensionManager.from_crawler(crawler)
+
+    def process_spider_input(self, response, spider):
+        self.lx_manager.process_response(response)
+        return None
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        middleware = cls(crawler)
+        return middleware

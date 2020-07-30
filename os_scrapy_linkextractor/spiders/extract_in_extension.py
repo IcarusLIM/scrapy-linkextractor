@@ -4,8 +4,8 @@ import scrapy
 from os_scrapy_linkextractor.items import ExampleItem
 
 
-class ExtractInMiddlewareSpider(scrapy.Spider):
-    name = "extract-in-middleware"
+class ExtractInExtensionSpider(scrapy.Spider):
+    name = "extract-in-extension"
 
     def start_requests(self):
         yield scrapy.Request(
