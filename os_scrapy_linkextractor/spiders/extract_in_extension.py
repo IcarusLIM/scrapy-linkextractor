@@ -11,6 +11,8 @@ class ExtractInExtensionSpider(scrapy.Spider):
         yield scrapy.Request(
             url="http://www.example.com",
             meta={
+                "depth": "5",
+                "extractor.depth_limit":7,
                 "extractor.rules": [
                     {"type": "re", "allow_domains": [], "deny_domains": []},
                     {
