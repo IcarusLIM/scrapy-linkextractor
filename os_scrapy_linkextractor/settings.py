@@ -101,3 +101,4 @@ LX_EXTENSIONS = [
     "os_scrapy_linkextractor.lx_extensions.regex.ReLinkExtractorExtension",
     # "os_scrapy_linkextractor.lx_extensions.external.ExternalLinkExtractorExtension",
 ]
+DEPTH_LIMIT = 3
