@@ -7,14 +7,16 @@ from os_scrapy_linkextractor.linkextractors import link_to_str
 
 logger = logging.getLogger(__name__)
 
+DEPTH_LIMIT_KEY = "extractor.depth_limit"
+
 
 class LxExtensionManager:
-    def __init__(self, lx_extensions=[], **kwargs):
-        self.crawler = kwargs.get("crawler")
+    def __init__(self, lx_extensions=[], depth_limit=None):
         self.lx_extensions = lx_extensions
-        self.depth_limit = self.crawler.settings.getint('DEPTH_LIMIT', None)
+        self.depth_limit = depth_limit
+
     @classmethod
-    def from_crawler(cls, crawler, *args, **kwargs):
+    def from_crawler(cls, crawler):
         settings = crawler.settings
         lx_extensions_cls = [load_object(p) for p in settings.getlist("LX_EXTENSIONS")]
         lx_extensions = []
@@ -23,9 +25,9 @@ class LxExtensionManager:
                 logger.warning(f"Invalid link extractor extension type {str(c)}")
                 continue
             lx_extensions.append(c.from_crawler(crawler))
-        kwargs['crawler']=crawler
-        kwargs['lx_extensions']=lx_extensions
-        return cls(*args, **kwargs)
+        depth_limit = crawler.settings.get("DEPTH_LIMIT")
+        depth_limit = int(depth_limit) if depth_limit else None
+        return cls(lx_extensions=lx_extensions, depth_limit=depth_limit)
 
     def add_extension(self, lx_extension):
         if not isinstance(lx_extension, LinkExtractorExtension):
@@ -35,35 +37,18 @@ class LxExtensionManager:
             return
         self.lx_extensions.append(lx_extension)
 
-    def _get_min_depth(self, request_depth_limit,depth_limit):
-        if request_depth_limit is None and depth_limit is None:
-            return None
-        if request_depth_limit is None:
-            return depth_limit
-        if depth_limit is None:
-            return request_depth_limit
-        return min(request_depth_limit,depth_limit)
-
-    def _get_int_value(self, my_dict:dict, key:str):
-        value=my_dict.get(key,None)
-        if value is None:
-            return None
-        if isinstance(value, int):
-            return value
-        elif isinstance(value, str):
-            if value.isdigit():
-                return int(value)
-        return None
-
     def extract_links(self, response):
         rules = response.request.meta.get("extractor.rules", None)
         if rules is None or not isinstance(rules, list):
-            return []
-        depth=self._get_int_value(response.request.meta,"depth")
-        request_depth_limit=self._get_int_value(response.request.meta,"extractor.depth_limit")
-        min_depth=self._get_min_depth(request_depth_limit,self.depth_limit)
-        if min_depth and depth and int(depth) > min_depth:
-            return []
+            return {}
+        meta = response.request.meta
+        depth = int(meta["depth"]) if "depth" in meta else None
+        req_depth_limit = (
+            int(meta[DEPTH_LIMIT_KEY]) if DEPTH_LIMIT_KEY in meta else None
+        )
+        max_depth = self._get_max_depth(req_depth_limit)
+        if max_depth and depth and depth >= max_depth:
+            return {}
         link_dict = {}
         for lx_extension in self.lx_extensions:
             links = lx_extension.extract_links(response, rules)
@@ -81,9 +66,17 @@ class LxExtensionManager:
     def process_response(self, response):
         link_dict = self.extract_links(response)
         if len(link_dict) > 0:
-                assert "extractor.links" not in response.meta
-                response.meta["extractor.links"] = link_dict
+            assert "extractor.links" not in response.meta
+            response.meta["extractor.links"] = link_dict
         return response
+
+    def _get_max_depth(self, req_depth_limit):
+        if self.depth_limit is None:
+            return req_depth_limit
+        if req_depth_limit is None:
+            return self.depth_limit
+        return min(self.depth_limit, req_depth_limit)
+
 
 class LinkExtractorExtension:
     def __init__(self, lx_cls):
