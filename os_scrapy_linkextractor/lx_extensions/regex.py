@@ -19,6 +19,7 @@ class ReLinkExtractorExtension(LinkExtractorExtension):
                 or (isinstance(v, (list, tuple)) and all(isinstance(i, str) for i in v))
             ):
                 lx_kwargs[key] = v
+        lx_kwargs["same_domain_only"] = rule.get("same_domain_only", None)
         return self.lx_cls(**lx_kwargs)
 
     @classmethod

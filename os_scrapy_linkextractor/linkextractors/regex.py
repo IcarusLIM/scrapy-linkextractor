@@ -16,6 +16,8 @@ from w3lib.html import (
 )
 from w3lib.url import canonicalize_url, to_unicode
 
+from os_scrapy_linkextractor.utils import get_url_domain
+
 linkre = re.compile(
     "<a\s.*?href=(\"[.#]+?\"|'[.#]+?'|[^\s]+?)(>|\s.*?>)(.*?)<[/ ]?a>",
     re.DOTALL | re.IGNORECASE,
@@ -65,10 +67,17 @@ class RegexParserLinkExtractor:
 
 
 class RegexLinkExtractor:
-    def __init__(self, allow_domains=(), deny_domains=(), canonicalize=False):
+    def __init__(
+        self,
+        allow_domains=(),
+        deny_domains=(),
+        same_domain_only=False,
+        canonicalize=False,
+    ):
         self.link_extractor = RegexParserLinkExtractor(canonicalized=canonicalize)
         self.allow_domains = set(arg_to_iter(allow_domains))
         self.deny_domains = set(arg_to_iter(deny_domains))
+        self.same_domain_only = same_domain_only
         self.canonicalize = canonicalize
 
     def _link_allowed(self, link):
@@ -81,8 +90,15 @@ class RegexLinkExtractor:
             return False
         return True
 
-    def _process_links(self, links):
+    def _process_links(self, response, links):
         links = [x for x in links if self._link_allowed(x)]
+        if self.same_domain_only:
+            response_domain = get_url_domain(response.url)
+            links = [
+                x
+                for x in links
+                if response_domain and url_is_from_any_domain(x.url, [response_domain])
+            ]
         if self.canonicalize:
             for link in links:
                 link.url = canonicalize_url(link.url)
@@ -98,4 +114,4 @@ class RegexLinkExtractor:
         links = self._extract_links(
             response.body, response.url, response.encoding, base_url
         )
-        return self._process_links(links)
+        return self._process_links(response, links)
