@@ -4,10 +4,12 @@ from inspect import isawaitable
 from scrapy.utils.misc import load_object
 
 from os_scrapy_linkextractor.linkextractors import link_to_str
+from os_scrapy_linkextractor.utils import drop_anchor
 
 logger = logging.getLogger(__name__)
 
 DEPTH_LIMIT_KEY = "extractor.depth_limit"
+DROP_ANCHOR_KEY = "extractor.drop_anchor"
 
 
 class LxExtensionManager:
@@ -42,6 +44,8 @@ class LxExtensionManager:
         if rules is None or not isinstance(rules, list):
             return {}
         meta = response.request.meta
+
+        # check depth limit
         depth = int(meta["depth"]) if "depth" in meta else None
         req_depth_limit = (
             int(meta[DEPTH_LIMIT_KEY]) if DEPTH_LIMIT_KEY in meta else None
@@ -49,6 +53,7 @@ class LxExtensionManager:
         max_depth = self._get_max_depth(req_depth_limit)
         if max_depth and depth and depth >= max_depth:
             return {}
+
         link_dict = {}
         for lx_extension in self.lx_extensions:
             links = lx_extension.extract_links(response, rules)
@@ -60,6 +65,11 @@ class LxExtensionManager:
                 link_dict[name] = links
             else:
                 link_dict[name].extend(links)
+
+        # drop anchor if need
+        if DROP_ANCHOR_KEY in meta and meta[DROP_ANCHOR_KEY]:
+            for key in link_dict.keys():
+                link_dict[key] = drop_anchor(link_dict[key])
         return link_dict
 
     # Set extracted links into response.meta["extracted_links"]
